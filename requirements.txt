@@ -1,0 +1,9 @@
+matplotlib==3.3.4
+numpy==1.20.1
+Pillow==9.2.0
+PyYAML==6.0
+requests==2.25.1
+rich==12.6.0
+torch==1.11.0
+torchinfo==1.7.0
+torchvision==0.12.0

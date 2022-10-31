@@ -1,0 +1,21 @@
+dataset: 
+  root: 'data/'
+  dataset_name: 'japanese_food'
+  class_name: ['ramen', 'sashimi', 'sushi','takoyaki']
+  
+model: 
+  name: 'resnet'
+  variant : '50' 
+  width_multi: 1.0  
+
+train:
+  epochs: 10
+  batch_size: 8
+  num_worker: 4
+  lr: 0.001
+  model_path: 'resnet50_food.pt'
+  pretrained_path: 'pretrained_weights/resnet50.pt'
+  save_dir: 'experiments'
+  
+test:
+  model_path: 'experiments/resnet50_202210311348/resnet50_food.pt'

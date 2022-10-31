@@ -1,0 +1,24 @@
+data/japanese_food directory exists.
+Training Starts...
+Epoch: 1 | train_loss: 0.9391 | train_acc: 0.5837 | test_loss: 0.4275 | test_acc: 0.8325
+Epoch: 2 | train_loss: 0.6382 | train_acc: 0.7438 | test_loss: 0.3187 | test_acc: 0.8725
+Epoch: 3 | train_loss: 0.4798 | train_acc: 0.8350 | test_loss: 0.4288 | test_acc: 0.8475
+Epoch: 4 | train_loss: 0.3971 | train_acc: 0.8550 | test_loss: 0.3292 | test_acc: 0.8825
+Epoch: 5 | train_loss: 0.2932 | train_acc: 0.8862 | test_loss: 0.3325 | test_acc: 0.8925
+Epoch: 6 | train_loss: 0.2919 | train_acc: 0.9050 | test_loss: 0.3543 | test_acc: 0.8750
+Epoch: 7 | train_loss: 0.3025 | train_acc: 0.8875 | test_loss: 0.3816 | test_acc: 0.8700
+Epoch: 8 | train_loss: 0.2100 | train_acc: 0.9113 | test_loss: 0.3466 | test_acc: 0.8850
+Epoch: 9 | train_loss: 0.2004 | train_acc: 0.9337 | test_loss: 0.4121 | test_acc: 0.8600
+Epoch: 10 | train_loss: 0.1855 | train_acc: 0.9350 | test_loss: 0.3365 | test_acc: 0.8675
+Total training time: 174.780 seconds
+Evaluation Starts....
+           Classification report            
+┏━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━┓
+┃ Class    ┃ Precision ┃ Recall ┃ F1-Score ┃
+┡━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━┩
+│ ramen    │ 0.24      │ 0.93   │ 0.38     │
+│ sashimi  │ 0.23      │ 0.86   │ 0.38     │
+│ sushi    │ 0.21      │ 0.75   │ 0.38     │
+│ takoyaki │ 0.25      │ 0.95   │ 0.38     │
+│ Accuracy │ 0.8725    │        │          │
+└──────────┴───────────┴────────┴──────────┘
