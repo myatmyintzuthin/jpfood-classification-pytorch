@@ -25,6 +25,13 @@ class Inference():
         self.test_log = utils.setup_logger(self.exp_dir+'/logs/test.log')
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
+        self.image_transform = transforms.Compose([
+                transforms.Resize((224, 224)),
+                transforms.ToTensor(),
+                transforms.Normalize(
+                    (0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+            ])
+
     def run(self):
         model = self.prepare_model()
         self.inference(model)
@@ -49,14 +56,7 @@ class Inference():
         for index, image_file in enumerate(image_files):
             image = Image.open(image_file)
 
-            # apply transfoms
-            image_transform = transforms.Compose([
-                transforms.Resize((224, 224)),
-                transforms.ToTensor(),
-                transforms.Normalize(
-                    (0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-            ])
-            image_transformed = image_transform(image)
+            image_transformed = self.image_transform(image)
 
             with torch.inference_mode():
                 image_transformed = image_transformed.unsqueeze_(dim=0)

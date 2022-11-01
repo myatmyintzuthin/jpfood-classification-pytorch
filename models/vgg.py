@@ -1,4 +1,4 @@
-
+import models.blocks as blocks
 import torch.nn as nn
 
 
@@ -13,25 +13,23 @@ class VGG(nn.Module):
         self.layer4 = self._make_layers(filters[2], filters[3], repeat[3])
         self.layer5 = self._make_layers(filters[3], filters[3], repeat[4])
 
-        self.relu = nn.ReLU()
+        self.relu = blocks.activation('relu')
         self.linear1 = nn.Linear(7*7*512, 4096)
         self.linear2 = nn.Linear(4096, 4096)
         self.linear3 = nn.Linear(4096, num_classes)
 
     def _make_layers(self, in_channel, out_channel, repeat):
 
-        layers = nn.Sequential()
-        layers.append(nn.Conv2d(in_channels=in_channel,
-                      out_channels=out_channel, kernel_size=3, stride=1, padding=1))
-        layers.append(nn.ReLU())
+        layers = []
+        layers.append(blocks.ConvAct(in_channel=in_channel,
+                    out_channel=out_channel, kernel_size=3, stride=1, padding=1, bias=True, act='relu', groups=1))
         for i in range(1, repeat):
-            layers.append(nn.Conv2d(in_channels=out_channel,
-                          out_channels=out_channel, kernel_size=3, stride=1, padding=1))
-            layers.append(nn.ReLU())
+            layers.append(blocks.ConvAct(in_channel=out_channel,
+                    out_channel=out_channel, kernel_size=3, stride=1, padding=1, bias=True, act='relu', groups=1))
 
         layers.append(nn.MaxPool2d(kernel_size=2, stride=2))
-
-        return layers
+        stage = nn.Sequential(*layers)
+        return stage
 
     def forward(self, x):
 

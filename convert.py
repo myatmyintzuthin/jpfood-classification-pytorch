@@ -37,7 +37,7 @@ class convert_model():
         model_name = f"{self.model}{self.variant}"
         my_model = self.load_model()
         my_state_dict = my_model.state_dict()
-
+    
         if self.model == 'vgg':
             pretrained_model = vgg_config[str(self.variant)]['torch_model'](pretrained = True)
         if self.model == 'resnet':
