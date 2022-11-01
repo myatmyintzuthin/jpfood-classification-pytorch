@@ -9,6 +9,8 @@ from torchvision import transforms
 
 
 def download_dataset(data_path, image_path, log):
+    ''' download dataset and unzip it
+    '''
     if image_path.is_dir():
         log.info(f"{image_path} directory exists.")
     else:
@@ -27,6 +29,8 @@ def download_dataset(data_path, image_path, log):
 
 
 def find_classes(directory: str):
+    ''' find classes in dataset
+    '''
     classes = sorted(entry.name for entry in os.scandir(directory) if entry.is_dir())
     if not classes:
         raise FileNotFoundError(f'Couldn\'t find any classes in {directory}')
@@ -61,6 +65,8 @@ class ImageFolderCustom(Dataset):
 class CustomDataloader():
     def __init__(self,data_dir: str, img_path: str, BATCH_SIZE: int, log: str, num_worker: int, shuffle: bool = True) -> None:
     
+        ''' custom dataloader class
+        '''
         self.batchsize = BATCH_SIZE
         self.shuffle = shuffle
         self.num_worker = num_worker

@@ -15,6 +15,8 @@ def log_table(rich_table):
     return Text.from_ansi(capture.get())
 
 def plot_confusion(actual, pred, class_name, save_path, save=True):
+    ''' confusion matrix calculation
+    '''
 
     actual = np.array(actual)
     pred = np.array(pred)
@@ -50,7 +52,8 @@ def plot_confusion(actual, pred, class_name, save_path, save=True):
     return cm
 
 def classification_report(cm, labels):
-    
+    ''' precision, recall, F1-score, accuracy calculation
+    '''
     Pre, Rc, F1 = [],[],[]
     # calculate tp,tn,fp,fn
     total = np.sum(cm)

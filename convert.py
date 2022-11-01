@@ -7,7 +7,7 @@ from models.resnet import ResNet, ResidualBlock, ResBottleneckBlock
 from models.vgg import VGG
 from models.mobilenetv2 import MobileNetV2
 
-class convert_model():
+class ConvertModel:
     def __init__(self, model: str, variant: str, width_multi: float, num_class: str) -> None:
         self.model = model
         self.variant = variant
@@ -75,5 +75,5 @@ if __name__ == '__main__':
 
     opt = parser.parse_args()
 
-    prepare_model = convert_model(opt.model, opt.variant, opt.width_multi, opt.num_class)
+    prepare_model = ConvertModel(opt.model, opt.variant, opt.width_multi, opt.num_class)
     prepare_model.initialize_weights()

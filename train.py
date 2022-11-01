@@ -17,7 +17,7 @@ torch.manual_seed(42)
 torch.cuda.manual_seed(42)
 
 
-class Training():
+class Training:
     def __init__(self, opt) -> None:
         self.config = utils.yaml_parser(opt.cfg)
         self.eval_opt = opt.eval
@@ -45,7 +45,9 @@ class Training():
             'cuda' if torch.cuda.is_available() else 'cpu')
 
     def run(self):
-
+        ''' run process 
+            train -> evaluation
+        '''
         if not self.eval_opt:
             
             exp_name = self.model_name+self.variant
@@ -65,7 +67,8 @@ class Training():
             self.eval(self.eval_model, dataloader, eval_log)
 
     def dataloader(self, cfg, log):
-
+        ''' data preparation
+        '''
         data_path = Path(cfg['root'])
         image_path = data_path/cfg['dataset_name']
         dataloader = dataset.CustomDataloader(
@@ -73,8 +76,9 @@ class Training():
         return dataloader
 
     def prepare_model(self):
-
-        choose_model = convert.convert_model(
+        ''' load model
+        '''
+        choose_model = convert.ConvertModel(
             self.model_name, self.variant, self.width_multi, self.num_class)
         model = choose_model.load_model()
 
@@ -82,11 +86,12 @@ class Training():
         model = utils.load_ckpt(model, ckpt)
 
         model = model.to(self.device)
-        # summary(model, input_size=(self.BATCH_SIZE, 3, 224, 224))
+        summary(model, input_size=(self.BATCH_SIZE, 3, 224, 224))
         return model
 
     def train(self, model, dataloader):
-
+        ''' model training
+        '''
         # dataloader
         train_loader, valid_loader = dataloader.train_dataloader(), dataloader.valid_dataloader()
         # lost function
@@ -115,7 +120,8 @@ class Training():
         torch.save(model.state_dict(), self.save_model)
 
     def eval(self, save_model, dataloader, log):
-        # evaluate model
+        ''' model evaluation
+        '''
         log.info("Evaluation Starts....")
         test_loader = dataloader.test_dataloader()
         evaluation = evaluate.Evaluation(save_model, test_loader, self.config)

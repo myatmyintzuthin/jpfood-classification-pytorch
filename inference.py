@@ -9,7 +9,7 @@ from matplotlib import pyplot as plt
 import utils.utils as utils
 import convert
 
-class Inference():
+class Inference:
     def __init__(self, opt) -> None:
 
         self.config = utils.yaml_parser(opt.cfg)
@@ -33,12 +33,15 @@ class Inference():
             ])
 
     def run(self):
+        ''' run process
+        '''
         model = self.prepare_model()
         self.inference(model)
 
     def prepare_model(self):
-        
-        choose_model = convert.convert_model(
+        ''' load model
+        '''
+        choose_model = convert.ConvertModel(
             self.model_name, self.variant, self.width_multi, len(self.class_name))
         model = choose_model.load_model()
         ckpt = torch.load(self.model_path)
@@ -47,7 +50,8 @@ class Inference():
         return model
 
     def inference(self, model):
-
+        ''' model inference
+        '''
         model.eval()
         image_files = glob(os.path.join(self.image_path, '*.jpg'))
 

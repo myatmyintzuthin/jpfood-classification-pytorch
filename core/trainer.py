@@ -2,7 +2,8 @@ import torch
 from rich.progress import track
 
 def train_step(model, dataloader, loss_fn, optimizer, device):
-
+    '''process for each training step
+    '''
     model.train()
 
     train_loss, train_acc = 0, 0
@@ -38,6 +39,8 @@ def train_step(model, dataloader, loss_fn, optimizer, device):
 
 def test_step(model, dataloader, loss_fn, device):
 
+    ''' process for each testing step
+    '''
     model.eval()
 
     test_loss, test_acc = 0, 0
@@ -68,6 +71,8 @@ def test_step(model, dataloader, loss_fn, device):
 
 def train(model, train_dataloader, test_dataloader, optimizer, loss_fn, scheduler, epochs, log, device):
 
+    ''' training loop
+    '''
     results = {'train_loss': [], 'train_acc': [],
                'test_loss': [], 'test_acc': []}
 

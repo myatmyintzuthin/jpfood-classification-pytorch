@@ -5,7 +5,7 @@ import metrics.metrices as metrices
 import convert
 
 
-class Evaluation():
+class Evaluation:
     def __init__(self, model_path, test_loader, config) -> None:
 
         self.model_path = model_path
@@ -20,13 +20,16 @@ class Evaluation():
             'cuda' if torch.cuda.is_available() else 'cpu')
 
     def run(self):
+        ''' run process
+        '''
         model = self.prepare_model()
         classification_report = self.evaluate(model)
         return classification_report
 
     def prepare_model(self):
-
-        choose_model = convert.convert_model(
+        ''' load model
+        '''
+        choose_model = convert.ConvertModel(
             self.model_name, self.variant, self.width_multi, len(self.class_name))
         model = choose_model.load_model()
         ckpt = torch.load(self.model_path)
@@ -35,7 +38,8 @@ class Evaluation():
         return model
 
     def evaluate(self, model):
-        
+        ''' model evaluation
+        '''
         model.eval()
         actual_label, pred_label = [],[]
         with torch.inference_mode():

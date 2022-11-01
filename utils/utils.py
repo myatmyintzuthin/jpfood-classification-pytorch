@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 
 def setup_logger(log_name):
+    '''
+    setup rich logger
+    '''
     logger = logging.getLogger(__name__)
 
     rh = RichHandler()
@@ -89,6 +92,9 @@ def plot_curves(results, save_path):
     plt.savefig(save_path)
 
 def load_ckpt(model, ckpt):
+    '''
+    load trained model 
+    '''
     model_state_dict = model.state_dict()
     load_dict = {}
     for key_model, v in model_state_dict.items():
