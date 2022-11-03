@@ -11,14 +11,13 @@ class InvertedResidual(nn.Module):
         self.skip_connection = self.stride == 1 and in_channel == out_channel
 
         if expansion == 1:
-            self.conv = blocks.DepthWiseConv(hidden_dim, out_channel, kernel_size=3, stride=stride, padding=1,bias=False, act='relu6', groups=hidden_dim,num_feat=hidden_dim)
+            self.conv = blocks.DepthWiseConv(hidden_dim, out_channel, kernel_size=3, stride=stride, padding=1,bias=False, act='relu6', groups=hidden_dim)
             
         else:
             self.conv = nn.Sequential(
-                #pw
-                blocks.ConvBnAct(in_channel, hidden_dim, kernel_size=1, stride=1, padding=0, bias=False, act='relu6', groups=1, num_feat=hidden_dim),
-                #dw
-                blocks.DepthWiseConv(hidden_dim, out_channel, kernel_size=3, stride=stride, padding=1,bias=False, act='relu6', groups=hidden_dim,num_feat=hidden_dim)
+                blocks.ConvBnAct(in_channel, hidden_dim, kernel_size=1, stride=1, padding=0, bias=False, act='relu6', groups=1),
+
+                blocks.DepthWiseConv(hidden_dim, out_channel, kernel_size=3, stride=stride, padding=1,bias=False, act='relu6', groups=hidden_dim)
             )
         
     def forward(self, x):
@@ -29,25 +28,17 @@ class InvertedResidual(nn.Module):
             return self.conv(x)    
 
 class MobileNetV2(nn.Module):
-    def __init__(self, num_class, width_multi) -> None:
+    def __init__(self, model_cfg, num_class, width_multi) -> None:
         super(MobileNetV2, self).__init__()
 
         bottle_neck = InvertedResidual
         in_channel = 32
         last_channel = 1280
-        self.cfgs = [
-            [1, 16, 1 , 1],
-            [6, 24, 2, 2],
-            [6, 32, 3, 2],
-            [6, 64, 4, 2],
-            [6, 96, 3, 1],
-            [6, 160, 3, 2],
-            [6, 320, 1, 1]
-        ]
+        self.cfgs = model_cfg
 
         self.last_channel = blocks.make_divisible(last_channel * width_multi) if width_multi > 1.0 else last_channel
         self.layers = [ 
-                blocks.ConvBnAct(3, in_channel, kernel_size=3, stride=2, padding=1, bias=False, act='relu6', groups=1, num_feat=in_channel)
+                blocks.ConvBnAct(3, in_channel, kernel_size=3, stride=2, padding=1, bias=False, act='relu6', groups=1)
             ]
 
         for t,c,n,s in self.cfgs:
@@ -57,7 +48,7 @@ class MobileNetV2(nn.Module):
                 in_channel = out_channel
         
         self.layers.append(
-            blocks.ConvBnAct(in_channel, self.last_channel, kernel_size=1, stride=1, padding=0, bias=False, act='relu6', groups=1, num_feat=self.last_channel)
+            blocks.ConvBnAct(in_channel, self.last_channel, kernel_size=1, stride=1, padding=0, bias=False, act='relu6', groups=1)
             )
         self.layers.append(nn.AdaptiveAvgPool2d((1,1)))
 

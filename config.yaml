@@ -4,8 +4,8 @@ dataset:
   class_name: ['ramen', 'sashimi', 'sushi','takoyaki']
   
 model: 
-  name: 'resnet'
-  variant : '50' 
+  name: 'mobilenet'
+  variant : 'v3-large' 
   width_multi: 1.0  
 
 train:
@@ -13,9 +13,9 @@ train:
   batch_size: 8
   num_worker: 4
   lr: 0.001
-  model_path: 'resnet50_food.pt'
-  pretrained_path: 'pretrained_weights/resnet50.pt'
+  model_path: 'mobilenetv3L_food.pt'
+  pretrained_path: 'pretrained_weights/mobilenetv3-large.pt'
   save_dir: 'experiments'
   
 test:
-  model_path: 'experiments/resnet50_202210311348/resnet50_food.pt'
+  model_path: 'experiments/mobilenetv3-large_202211030833/mobilenetv3L_food.pt'

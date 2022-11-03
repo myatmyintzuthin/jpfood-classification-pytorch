@@ -9,7 +9,7 @@ Ramen :ramen: , Sashimi :fish: , Sushi :sushi: , Takoyaki :dango:
 | ----------- | ----------- |
 | VGG         | 11, 13, 16, 19 |
 | Resnet      | 18, 34, 50, 101, 152 |
-| Mobilenet   | v2 |
+| Mobilenet   | v2, v3-small, v3-large |
 
 ## 1. Dependencies
 
@@ -64,6 +64,7 @@ options:
     --eval : To evaluate the model without training again
     --eval_model : model path for evaluation
 ```
+The result for each model training is saved in `experiments/{model_name}{datetime}/` folder.
 ## 6. Inference
 For inference, run:
 ```bash

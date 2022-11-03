@@ -6,6 +6,7 @@ from models.model_config import vgg_config, resnet_config, mobilenet_config
 from models.resnet import ResNet, ResidualBlock, ResBottleneckBlock
 from models.vgg import VGG
 from models.mobilenetv2 import MobileNetV2
+from models.mobilenetv3 import MobileNetV3
 
 class ConvertModel:
     def __init__(self, model: str, variant: str, width_multi: float, num_class: str) -> None:
@@ -27,7 +28,10 @@ class ConvertModel:
                 model = ResNet(ResBottleneckBlock, resnet_config[str(self.variant)]['repeat'], useBottleneck=True, num_class=self.num_class)
         if self.model == 'mobilenet':
             if self.variant == 'v2':
-                model = MobileNetV2(self.num_class, self.width_mutli)
+                model = MobileNetV2(mobilenet_config[str(self.variant)]['cfg'], self.num_class, self.width_mutli)
+            else:
+                model = MobileNetV3(mobilenet_config[str(self.variant)]['cfg'], self.num_class)
+
         return model
 
     def initialize_weights(self):
@@ -46,7 +50,7 @@ class ConvertModel:
             pretrained_model = mobilenet_config[str(self.variant)]['torch_model'](pretrained = True)
 
         pretrained_state_dict = pretrained_model.state_dict()
-
+        
         for my, pre in zip(my_state_dict.keys(), pretrained_state_dict.keys()):
             my_state_dict[my] = pretrained_state_dict[pre]
 

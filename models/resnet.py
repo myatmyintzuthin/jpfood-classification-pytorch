@@ -6,11 +6,11 @@ class ResidualBlock(nn.Module):
     def __init__(self, in_channel, out_channel, downsample):
         super(ResidualBlock, self).__init__()
         
-        self.conv1 = blocks.ConvBnAct(in_channel=in_channel, out_channel=out_channel, kernel_size=3, stride=2 if downsample else 1, padding=1, bias=False, act='relu', groups=1, num_feat=out_channel)
-        self.conv2 = blocks.ConvBn(in_channel=out_channel, out_channel=out_channel, kernel_size=3, stride=1, padding=1, bias=False, groups=1, num_feat=out_channel)
+        self.conv1 = blocks.ConvBnAct(in_channel=in_channel, out_channel=out_channel, kernel_size=3, stride=2 if downsample else 1, padding=1, bias=False, act='relu', groups=1)
+        self.conv2 = blocks.ConvBn(in_channel=out_channel, out_channel=out_channel, kernel_size=3, stride=1, padding=1, bias=False, groups=1)
 
         if downsample:
-            self.identity = blocks.ConvBn(in_channel=in_channel, out_channel=out_channel, kernel_size=1, stride=2, padding=0, bias=False, groups=1, num_feat=out_channel)
+            self.identity = blocks.ConvBn(in_channel=in_channel, out_channel=out_channel, kernel_size=1, stride=2, padding=0, bias=False, groups=1)
         else:
             self.identity = nn.Sequential()
         
@@ -30,12 +30,12 @@ class ResBottleneckBlock(nn.Module):
         super().__init__()
 
         self.downsample = downsample
-        self.conv1 = blocks.ConvBnAct(in_channel=in_channel, out_channel=out_channel//4, kernel_size=1, stride=1, padding=0, bias=False, act='relu', groups=1, num_feat=out_channel//4)
-        self.conv2 = blocks.ConvBnAct(in_channel=out_channel//4, out_channel=out_channel//4, kernel_size=3, stride=2 if downsample else 1, padding=1, bias=False, act='relu', groups=1, num_feat=out_channel//4)
-        self.conv3 = blocks.ConvBn(in_channel=out_channel//4, out_channel=out_channel, kernel_size=1, stride=1, padding=0, bias=False, groups=1, num_feat=out_channel)
+        self.conv1 = blocks.ConvBnAct(in_channel=in_channel, out_channel=out_channel//4, kernel_size=1, stride=1, padding=0, bias=False, act='relu', groups=1)
+        self.conv2 = blocks.ConvBnAct(in_channel=out_channel//4, out_channel=out_channel//4, kernel_size=3, stride=2 if downsample else 1, padding=1, bias=False, act='relu', groups=1)
+        self.conv3 = blocks.ConvBn(in_channel=out_channel//4, out_channel=out_channel, kernel_size=1, stride=1, padding=0, bias=False, groups=1)
 
         if self.downsample or in_channel != out_channel:
-            self.identity = blocks.ConvBn(in_channel=in_channel, out_channel=out_channel, kernel_size=1, stride=2 if downsample else 1, padding=0, bias=False, groups=1, num_feat=out_channel)
+            self.identity = blocks.ConvBn(in_channel=in_channel, out_channel=out_channel, kernel_size=1, stride=2 if downsample else 1, padding=0, bias=False, groups=1)
         else:
             self.identity = nn.Sequential()
         self.relu = nn.ReLU()
