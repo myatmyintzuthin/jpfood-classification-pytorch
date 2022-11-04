@@ -4,8 +4,8 @@ dataset:
   class_name: ['ramen', 'sashimi', 'sushi','takoyaki']
   
 model: 
-  name: 'mobilenet'
-  variant : 'v3-large' 
+  name: 'shufflenet'
+  variant : 'v2' 
   width_multi: 1.0  
 
 train:
@@ -13,9 +13,9 @@ train:
   batch_size: 8
   num_worker: 4
   lr: 0.001
-  model_path: 'mobilenetv3L_food.pt'
-  pretrained_path: 'pretrained_weights/mobilenetv3-large.pt'
+  model_path: 'shufflenetv2_food.pt'
+  pretrained_path: 'pretrained_weights/shufflenetv2.pt'
   save_dir: 'experiments'
   
 test:
-  model_path: 'experiments/mobilenetv3-large_202211030833/mobilenetv3L_food.pt'
+  model_path: 'experiments/shufflenetv2_202211041317/shufflenetv2_food.pt'

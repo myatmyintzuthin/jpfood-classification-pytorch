@@ -56,3 +56,12 @@ mobilenet_config = {
             [5, 960, 160, 160, True, 'HE', 1]
         ], 'torch_model': models.mobilenet_v3_large}
     }
+shufflenet_config = {
+    'v2': {
+        '0.5': {'out_channel':[24, 48, 96, 192, 1024], 'torch_model': models.shufflenet_v2_x0_5},
+        '1.0': {'out_channel':[24, 116, 232, 464, 1024], 'torch_model': models.shufflenet_v2_x1_0},
+        '1.5': {'out_channel':[24, 176, 352, 704, 1024], 'torch_model': models.shufflenet_v2_x1_5},
+        '2.0': {'out_channel':[24, 244, 488, 976, 2048], 'torch_model': models.shufflenet_v2_x2_0}
+    }
+}
+

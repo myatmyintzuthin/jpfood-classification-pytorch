@@ -10,6 +10,7 @@ Ramen :ramen: , Sashimi :fish: , Sushi :sushi: , Takoyaki :dango:
 | VGG         | 11, 13, 16, 19 |
 | Resnet      | 18, 34, 50, 101, 152 |
 | Mobilenet   | v2, v3-small, v3-large |
+| Shufflenet  | v2 |
 
 ## 1. Dependencies
 
@@ -33,7 +34,7 @@ pip install -r requirements.txt
 The dataset used in this repository is a subset of [Food-101 dataset](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/).\
 The original dataset contains 1000 images for each class. \
 In this repository, train - 200, validation - 100 and test - 100 images are used.\
-Japanese food dataset can be downloaded from [link](https://github.com/myatmyintzuthin/models-in-pytorch/releases/download/v.1.0/japanese_food.zip)
+Japanese food dataset can be downloaded from [link](https://github.com/myatmyintzuthin/japanese-food-classification/releases/download/v1_dataset/japanese_food.zip)
 
 ## 3. Prepare pretrained models
 Model implementations are available in `models/{model}.py` folder. \

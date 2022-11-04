@@ -2,11 +2,12 @@ import os
 import argparse
 import torch
 
-from models.model_config import vgg_config, resnet_config, mobilenet_config
+from models.model_config import vgg_config, resnet_config, mobilenet_config, shufflenet_config
 from models.resnet import ResNet, ResidualBlock, ResBottleneckBlock
 from models.vgg import VGG
 from models.mobilenetv2 import MobileNetV2
 from models.mobilenetv3 import MobileNetV3
+from models.shufflenet import ShuffleNetV2
 
 class ConvertModel:
     def __init__(self, model: str, variant: str, width_multi: float, num_class: str) -> None:
@@ -31,7 +32,9 @@ class ConvertModel:
                 model = MobileNetV2(mobilenet_config[str(self.variant)]['cfg'], self.num_class, self.width_mutli)
             else:
                 model = MobileNetV3(mobilenet_config[str(self.variant)]['cfg'], self.num_class)
-
+        if self.model == 'shufflenet':
+            if self.variant == 'v2':
+                model = ShuffleNetV2(shufflenet_config[str(self.variant)], self.num_class, self.width_mutli)
         return model
 
     def initialize_weights(self):
@@ -41,16 +44,24 @@ class ConvertModel:
         model_name = f"{self.model}{self.variant}"
         my_model = self.load_model()
         my_state_dict = my_model.state_dict()
-    
+
+        print(len(my_state_dict.keys()))
+        for i in my_state_dict:
+            print(i)
+            
         if self.model == 'vgg':
             pretrained_model = vgg_config[str(self.variant)]['torch_model'](pretrained = True)
         if self.model == 'resnet':
             pretrained_model = resnet_config[str(self.variant)]['torch_model'](pretrained = True)
         if self.model == 'mobilenet':
             pretrained_model = mobilenet_config[str(self.variant)]['torch_model'](pretrained = True)
+        if self.model == 'shufflenet':
+            pretrained_model = shufflenet_config[str(self.variant)][str(self.width_mutli)]['torch_model'](pretrained = True)
 
         pretrained_state_dict = pretrained_model.state_dict()
-        
+        # print(len(pretrained_state_dict.keys()))
+        # for i in pretrained_state_dict:
+        #     print(i)
         for my, pre in zip(my_state_dict.keys(), pretrained_state_dict.keys()):
             my_state_dict[my] = pretrained_state_dict[pre]
 

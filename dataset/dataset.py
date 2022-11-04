@@ -19,7 +19,7 @@ def download_dataset(data_path, image_path, log):
 
         with open(data_path/"japanese_food.zip", "wb") as f:
             request = requests.get(
-                "https://github.com/myatmyintzuthin/models-in-pytorch/releases/download/v.1.0/japanese_food.zip")
+                "https://github.com/myatmyintzuthin/japanese-food-classification/releases/download/v1_dataset/japanese_food.zip")
             log.info("Downloading japanese food...")
             f.write(request.content)
 
