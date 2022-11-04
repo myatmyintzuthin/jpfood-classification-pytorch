@@ -8,6 +8,7 @@ from models.vgg import VGG
 from models.mobilenetv2 import MobileNetV2
 from models.mobilenetv3 import MobileNetV3
 from models.shufflenet import ShuffleNetV2
+from torchinfo import summary
 
 class ConvertModel:
     def __init__(self, model: str, variant: str, width_multi: float, num_class: str) -> None:
@@ -20,6 +21,9 @@ class ConvertModel:
         '''
         Load different DL models based on input
         '''
+        if self.model.lower() not in ['vgg','resnet','mobilenet','shufflenet']:
+            assert "model not supported"
+
         if self.model == 'vgg':
             model = VGG(vgg_config[str(self.variant)]['repeat'], self.num_class)
         if self.model == 'resnet':
@@ -45,9 +49,9 @@ class ConvertModel:
         my_model = self.load_model()
         my_state_dict = my_model.state_dict()
 
-        print(len(my_state_dict.keys()))
-        for i in my_state_dict:
-            print(i)
+        # print(len(my_state_dict.keys()))
+        # for i in my_state_dict:
+        #     print(i)
             
         if self.model == 'vgg':
             pretrained_model = vgg_config[str(self.variant)]['torch_model'](pretrained = True)
@@ -57,6 +61,8 @@ class ConvertModel:
             pretrained_model = mobilenet_config[str(self.variant)]['torch_model'](pretrained = True)
         if self.model == 'shufflenet':
             pretrained_model = shufflenet_config[str(self.variant)][str(self.width_mutli)]['torch_model'](pretrained = True)
+
+        summary(pretrained_model, input_size=(8, 3, 224, 224))
 
         pretrained_state_dict = pretrained_model.state_dict()
         # print(len(pretrained_state_dict.keys()))

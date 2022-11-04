@@ -1,5 +1,18 @@
 import torch
+import torch.nn as nn
 from rich.progress import track
+
+def choose_optimizer(optim: str, model, LR):
+    optim_list = {
+        'adam': torch.optim.Adam(params=model.parameters(), lr=LR, weight_decay=0.001),
+        'sgd': torch.optim.SGD(params=model.parameters(), lr=LR, weight_decay=0.001, momentum=0.9, nesterov=True)
+    }
+    optim = optim.lower()
+
+    if optim not in optim_list.keys():
+        assert "optimizer not supported"
+
+    return optim_list[optim]
 
 def train_step(model, dataloader, loss_fn, optimizer, device):
     '''process for each training step

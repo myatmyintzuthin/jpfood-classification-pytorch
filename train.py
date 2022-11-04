@@ -9,7 +9,7 @@ from timeit import default_timer as timer
 import evaluate
 import convert
 import dataset.dataset as dataset
-from metrics.metrices import classification_report
+
 import utils.utils as utils
 import core.trainer as trainer
 
@@ -36,6 +36,7 @@ class Training:
         self.model_path = train_cfg['model_path']
         self.pretrained_path = train_cfg['pretrained_path']
         self.BATCH_SIZE = train_cfg['batch_size']
+        self.optimizer = train_cfg['optimizer']
         self.epochs = train_cfg['epochs']
         self.num_worker = train_cfg['num_worker']
         self.learning_rate = train_cfg['lr']
@@ -97,8 +98,8 @@ class Training:
         # lost function
         loss_fn = nn.CrossEntropyLoss()
         # optimizer
-        optimizer = torch.optim.SGD(params=model.parameters(
-        ), lr=self.learning_rate, weight_decay=0.001, momentum=0.9, nesterov=True)
+        optimizer = trainer.choose_optimizer(self.optimizer, model, self.learning_rate)
+
         # scheduler
         scheduler = torch.optim.lr_scheduler.StepLR(
             optimizer, step_size=15, gamma=0.2)

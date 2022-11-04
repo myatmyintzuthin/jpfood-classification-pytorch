@@ -4,18 +4,19 @@ dataset:
   class_name: ['ramen', 'sashimi', 'sushi','takoyaki']
   
 model: 
-  name: 'shufflenet'
-  variant : 'v2' 
+  name: 'resnet'
+  variant : '50' 
   width_multi: 1.0  
 
 train:
   epochs: 10
   batch_size: 8
   num_worker: 4
+  optimizer: 'sgd'
   lr: 0.001
-  model_path: 'shufflenetv2_food.pt'
-  pretrained_path: 'pretrained_weights/shufflenetv2.pt'
+  model_path: 'resnet50_food.pt'
+  pretrained_path: 'pretrained_weights/resnet50.pt'
   save_dir: 'experiments'
   
 test:
-  model_path: 'experiments/shufflenetv2_202211041317/shufflenetv2_food.pt'
+  model_path: 'experiments/shufflenetv2_202211041527/shufflenetv2_food.pt'
