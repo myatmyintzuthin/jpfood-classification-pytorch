@@ -58,6 +58,15 @@ model:
     name: 'resnet'
     variant: '50'
 ```
+Hyperparameters recommendation:
+| Model       | Optimizer | Learning_rate |
+| ----------- | ----------| ------------- |
+| VGG         | sgd       | 0.001         |
+| Resnet      | sgd       | 0.001         |
+| Mobilenet   | sgd       | 0.001         |
+| Shufflenet  | sgd       | 0.005         |
+| ConvNeXt    | adamw     | 0.00005       |
+
 ## 5. Training and evaluation
 For training, run:
 ```bash
@@ -81,15 +90,4 @@ options:
 ## Reference
 - [Torch Vision](https://github.com/pytorch/vision/tree/main/torchvision/models)
 - [Zero to Mastery Learn PyTorch for Deep Learning](https://www.learnpytorch.io/)
-
-## Appendix
-
-Hyperparameters recommendation:
-| Model       | Optimizer | learning_rate |
-| ----------- | ----------| ------------- |
-| VGG         | sgd       | 0.001         |
-| Resnet      | sgd       | 0.001         |
-| Mobilenet   | sgd       | 0.001         |
-| Shufflenet  | sgd       | 0.005         |
-| ConvNeXt    | adamw     | 0.00005       |
 
