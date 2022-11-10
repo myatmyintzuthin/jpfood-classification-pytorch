@@ -2,12 +2,13 @@ import os
 import argparse
 import torch
 
-from models.model_config import vgg_config, resnet_config, mobilenet_config, shufflenet_config
+from models.model_config import vgg_config, resnet_config, mobilenet_config, shufflenet_config, convNeXt_config
 from models.resnet import ResNet, ResidualBlock, ResBottleneckBlock
 from models.vgg import VGG
 from models.mobilenetv2 import MobileNetV2
 from models.mobilenetv3 import MobileNetV3
 from models.shufflenet import ShuffleNetV2
+from models.convnext import ConvNeXt
 from torchinfo import summary
 
 class ConvertModel:
@@ -39,6 +40,8 @@ class ConvertModel:
         if self.model == 'shufflenet':
             if self.variant == 'v2':
                 model = ShuffleNetV2(shufflenet_config[str(self.variant)], self.num_class, self.width_mutli)
+        if self.model == 'convnext':
+                model = ConvNeXt(convNeXt_config[str(self.variant)],self.num_class)
         return model
 
     def initialize_weights(self):
@@ -52,7 +55,8 @@ class ConvertModel:
         # print(len(my_state_dict.keys()))
         # for i in my_state_dict:
         #     print(i)
-            
+        summary(my_model, input_size=(8, 3, 224, 224))
+
         if self.model == 'vgg':
             pretrained_model = vgg_config[str(self.variant)]['torch_model'](pretrained = True)
         if self.model == 'resnet':
@@ -61,8 +65,10 @@ class ConvertModel:
             pretrained_model = mobilenet_config[str(self.variant)]['torch_model'](pretrained = True)
         if self.model == 'shufflenet':
             pretrained_model = shufflenet_config[str(self.variant)][str(self.width_mutli)]['torch_model'](pretrained = True)
+        if self.model == 'convnext':
+            pretrained_model = convNeXt_config[str(self.variant)]['torch_model'](pretrained = True)
 
-        summary(pretrained_model, input_size=(8, 3, 224, 224))
+        # summary(pretrained_model, input_size=(8, 3, 224, 224))
 
         pretrained_state_dict = pretrained_model.state_dict()
         # print(len(pretrained_state_dict.keys()))

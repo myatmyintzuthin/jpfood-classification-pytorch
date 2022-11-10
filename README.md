@@ -11,6 +11,7 @@ Ramen :ramen: , Sashimi :fish: , Sushi :sushi: , Takoyaki :dango:
 | Resnet      | 18, 34, 50, 101, 152 |
 | Mobilenet   | v2, v3-small, v3-large |
 | Shufflenet  | v2 |
+| ConvNeXt    | tiny, small, base, large |
 
 ## 1. Dependencies
 
@@ -50,7 +51,8 @@ options:
 ```
 Pretrained models will be saved as `pretrained/{model}.pt`
 ## 4. Prepare Config
-Change model and variant of desired model before training and testing in `config.yaml`.
+Change model and variant of desired model before training and testing in `config.yaml`. 
+
 ```
 model:
     name: 'resnet'
@@ -79,4 +81,15 @@ options:
 ## Reference
 - [Torch Vision](https://github.com/pytorch/vision/tree/main/torchvision/models)
 - [Zero to Mastery Learn PyTorch for Deep Learning](https://www.learnpytorch.io/)
+
+## Appendix
+
+Hyperparameters recommendation:
+| Model       | Optimizer | learning_rate |
+| ----------- | ----------| ------------- |
+| VGG         | sgd       | 0.001         |
+| Resnet      | sgd       | 0.001         |
+| Mobilenet   | sgd       | 0.001         |
+| Shufflenet  | sgd       | 0.005         |
+| ConvNeXt    | adamw     | 0.00005       |
 

@@ -5,7 +5,8 @@ from rich.progress import track
 def choose_optimizer(optim: str, model, LR):
     optim_list = {
         'adam': torch.optim.Adam(params=model.parameters(), lr=LR, weight_decay=0.001),
-        'sgd': torch.optim.SGD(params=model.parameters(), lr=LR, weight_decay=0.001, momentum=0.9, nesterov=True)
+        'sgd': torch.optim.SGD(params=model.parameters(), lr=LR, weight_decay=0.001, momentum=0.9, nesterov=True),
+        'adamw': torch.optim.AdamW(params=model.parameters(), lr=LR, weight_decay=0.001)
     }
     optim = optim.lower()
 

@@ -8,7 +8,8 @@ def activation(act: str):
         'relu6': nn.ReLU6,
         'hsigmoid': nn.Hardsigmoid,
         'h-swish': nn.Hardswish,
-        'silu': nn.SiLU
+        'silu': nn.SiLU,
+        'gelu': nn.GELU,
     }
     act = act.lower()
 
