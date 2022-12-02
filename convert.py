@@ -58,15 +58,15 @@ class ConvertModel:
         summary(my_model, input_size=(8, 3, 224, 224))
 
         if self.model == 'vgg':
-            pretrained_model = vgg_config[str(self.variant)]['torch_model'](pretrained = True)
+            pretrained_model = vgg_config[str(self.variant)]['torch_model'](weights = True)
         if self.model == 'resnet':
-            pretrained_model = resnet_config[str(self.variant)]['torch_model'](pretrained = True)
+            pretrained_model = resnet_config[str(self.variant)]['torch_model'](weights = True)
         if self.model == 'mobilenet':
-            pretrained_model = mobilenet_config[str(self.variant)]['torch_model'](pretrained = True)
+            pretrained_model = mobilenet_config[str(self.variant)]['torch_model'](weights = True)
         if self.model == 'shufflenet':
-            pretrained_model = shufflenet_config[str(self.variant)][str(self.width_mutli)]['torch_model'](pretrained = True)
+            pretrained_model = shufflenet_config[str(self.variant)][str(self.width_mutli)]['torch_model'](weights = True)
         if self.model == 'convnext':
-            pretrained_model = convNeXt_config[str(self.variant)]['torch_model'](pretrained = True)
+            pretrained_model = convNeXt_config[str(self.variant)]['torch_model'](weights = True)
 
         # summary(pretrained_model, input_size=(8, 3, 224, 224))
 

@@ -4,19 +4,19 @@ dataset:
   class_name: ['ramen', 'sashimi', 'sushi','takoyaki']
   
 model: 
-  name: 'convnext'
-  variant : 'tiny' 
+  name: 'resnet'
+  variant : '50' 
   width_multi: 1.0  
 
 train:
   epochs: 10
   batch_size: 8
   num_worker: 4
-  optimizer: 'adamw'
-  lr: 0.00005
+  optimizer: 'sgd'
+  lr: 0.001
   model_path: 'convnext_food.pt'
-  pretrained_path: 'pretrained_weights/convnexttiny.pt'
+  pretrained_path: 'pretrained_weights/resnet50.pt'
   save_dir: 'experiments'
   
 test:
-  model_path: 'experiments/convnexttiny_202211101600/convnext_food.pt'
+  model_path: 'experiments/resnet50_202212021104/resnet50_food.pt'

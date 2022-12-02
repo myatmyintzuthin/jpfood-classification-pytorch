@@ -34,6 +34,7 @@ pip install -r requirements.txt
 ## 2. Dataset
 The dataset used in this repository is a subset of [Food-101 dataset](https://data.vision.ee.ethz.ch/cvl/datasets_extra/food-101/).\
 The original dataset contains 1000 images for each class. \
+<img src="assets/food101.jpg" alt= “” width="640" height="value">\
 In this repository, train - 200, validation - 100 and test - 100 images are used.\
 Japanese food dataset can be downloaded from [link](https://github.com/myatmyintzuthin/japanese-food-classification/releases/download/v1_dataset/japanese_food.zip)
 
@@ -86,6 +87,8 @@ options:
     --image : Folder path to inference images
     --viz   : Whether to visualize inferece results
 ```
+### Inference Result
+<img src="assets/inference_result.png" alt= “” width="640" height="value">\
 
 ## Reference
 - [Torch Vision](https://github.com/pytorch/vision/tree/main/torchvision/models)
