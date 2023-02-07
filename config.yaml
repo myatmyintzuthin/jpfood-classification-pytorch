@@ -14,7 +14,7 @@ train:
   num_worker: 4
   optimizer: 'sgd'
   lr: 0.001
-  model_path: 'convnext_food.pt'
+  model_path: 'resnet_food.pt'
   pretrained_path: 'pretrained_weights/resnet50.pt'
   save_dir: 'experiments'
   
