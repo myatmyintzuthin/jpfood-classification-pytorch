@@ -87,6 +87,15 @@ options:
     --image : Folder path to inference images
     --viz   : Whether to visualize inferece results
 ```
+for C++ inference, change required inputs and run:
+
+```bash
+python trace_model.py 
+```
+to convert pytorch model to script model.
+After tracing the model, use it in 
+[libtorch-inference repo.](https://github.com/myatmyintzuthin/libtorch-inference)
+
 ### Inference Result
 <img src="assets/inference_result.png" alt= “” width="640" height="value">\
 
